@@ -1,24 +1,26 @@
+# frozen_string_literal: true
+
 class SalaryBonusCalculator
   def initialize(base_salary)
     @base_salary = base_salary
   end
 
   def find_net_salary
-    puts "" "
+    puts "
         Base Salary: #{@base_salary}
         Bonus Percentage: #{calculate_bonus * 100}%
         Bonus Amount: #{calculate_bonus_amount}
         Net Salary: #{calculate_net_salary}
-        " ""
+        "
   end
 
   private
 
   def calculate_bonus
     case @base_salary
-    when 0..10000 then 0.25
-    when 10001..100000 then 0.15
-    when 100001..Float::INFINITY then 0.10
+    when 0..10_000 then 0.25
+    when 10_001..100_000 then 0.15
+    when 100_001..Float::INFINITY then 0.10
     else 0.0
     end
   end
