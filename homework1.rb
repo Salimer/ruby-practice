@@ -1,39 +1,29 @@
 # frozen_string_literal: true
 
-class SalaryBonusCalculator
-  def initialize(base_salary)
-    @base_salary = base_salary
-  end
+# class for the triangle challenge
+class TriangleType
+  def self.result(a, b, c)
+    unless valid_triangle?(a, b, c)
+      puts 'not triangle'
+      return
+    end
 
-  def find_net_salary
-    puts "
-        Base Salary: #{@base_salary}
-        Bonus Percentage: #{calculate_bonus * 100}%
-        Bonus Amount: #{calculate_bonus_amount}
-        Net Salary: #{calculate_net_salary}
-        "
-  end
-
-  private
-
-  def calculate_bonus
-    case @base_salary
-    when 0..10_000 then 0.25
-    when 10_001..100_000 then 0.15
-    when 100_001..Float::INFINITY then 0.10
-    else 0.0
+    if a == b && b == c
+      puts 'equi'
+    elsif a == b || b == c || a == c
+      puts 'iso'
+    else
+      puts 'sca'
     end
   end
 
-  def calculate_net_salary
-    @base_salary + (@base_salary * calculate_bonus)
-  end
-
-  def calculate_bonus_amount
-    @base_salary * calculate_bonus
+  def self.valid_triangle?(a, b, c)
+    a.positive? && b.positive? && c.positive? &&
+      a + b > c && b + c > a && a + c > b
   end
 end
 
-# Example usage:
-calculator = SalaryBonusCalculator.new(1147)
-calculator.find_net_salary
+TriangleType.result(3, 3, 3)
+TriangleType.result(3, 4, 4)
+TriangleType.result(3, 4, 5)
+TriangleType.result(1, 2, 3)
