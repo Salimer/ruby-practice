@@ -1,29 +1,38 @@
-# frozen_string_literal: true
+class ToDoList
+  include Enumerable
 
-# class for the triangle challenge
-class TriangleType
-  def self.result(a, b, c)
-    unless valid_triangle?(a, b, c)
-      puts 'not triangle'
-      return
-    end
-
-    if a == b && b == c
-      puts 'equi'
-    elsif a == b || b == c || a == c
-      puts 'iso'
-    else
-      puts 'sca'
-    end
+  def initialize(array = [])
+    @items = array
   end
 
-  def self.valid_triangle?(a, b, c)
-    a.positive? && b.positive? && c.positive? &&
-      a + b > c && b + c > a && a + c > b
+  def each
+    @items.each { |item| yield(item) }
+  end
+
+  def <<(item)
+    @items.unshift item
+    self
   end
 end
 
-TriangleType.result(3, 3, 3)
-TriangleType.result(3, 4, 4)
-TriangleType.result(3, 4, 5)
-TriangleType.result(1, 2, 3)
+list = ToDoList.new(["dishes", "nap", "laundry"])
+
+puts
+puts "First: " + list.first
+puts
+puts "Longest: " + list.find { |item| item.length > 6 }
+puts
+puts "Original list:"
+puts list.map { |item| "> #{item.capitalize}" }
+
+list << "sweep"
+puts
+puts "Updated list:"
+puts list.map { |item| "> #{item.capitalize}" }
+
+puts
+puts "Sorted:"
+list.sort.each_with_index do |item, i|
+  puts "#{i + 1}: #{item}"
+end
+puts
